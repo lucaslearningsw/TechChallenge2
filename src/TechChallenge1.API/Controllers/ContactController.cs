@@ -1,18 +1,16 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using TechChallenge1.Core.DomainExceptions;
 using TechChallenge1.Core.DTO;
-using TechChallenge1.Data.Repository;
+
 using TechChallenge1.Domain.Interfaces;
 using TechChallenge1.Domain.Models;
-using TechChallenge1.Domain.Validators;
+
 
 namespace TechChallenge1.API.Controllers
 {
-
     [ApiController]
     [Route("/api/[controller]")]
     public class ContactController : Controller
@@ -30,7 +28,6 @@ namespace TechChallenge1.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("list-contact")]
         public async Task<IActionResult> GetAllContacts()
         {
@@ -45,8 +42,30 @@ namespace TechChallenge1.API.Controllers
            
         }
 
-      
+        [HttpGet]
+        [Route("get-by-id/{id:guid}")]
+        public async Task<IActionResult> GetContactById([FromRoute] Guid id)
+        {
+            try
+            {
+                var contact = await _contactService.GetById(id);
 
+                if (contact is null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<ContactDto>(await _contactService.GetById(id)));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+
+        [AllowAnonymous]
         [Route("register-contact")]
         [HttpPut]
         public async Task<IActionResult> AddContact([FromBody] ContactDto contact)
