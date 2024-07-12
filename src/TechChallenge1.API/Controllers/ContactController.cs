@@ -45,44 +45,10 @@ namespace TechChallenge1.API.Controllers
            
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("radzen-list")]
-        public IActionResult GetRadzenList(LoadDataArgs args)
-        {
-            try
-            {
-                var entity =  _contactService.GetRadzenList(args.Filter, args.OrderBy, args.Skip.Value, args.Top.Value, x => new Contact()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Email = x.Email,
-                    Phone = x.Phone,
-                    State = x.State,
-                    StateId = x.StateId
-                });
-
-                var dtoList = _mapper.Map<IEnumerable<ContactDto>>(entity.List);
-
-                var returnTable = new ReturnTableDto<ContactDto>
-                {
-                    TotalRegister = entity.TotalRegister,
-                    List = dtoList,
-                    TotalPages = entity.TotalPages,
-                    TotalRegisterFilter = entity.TotalRegisterFilter,
-                };
-
-               return Ok(returnTable);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-           
-        }
+      
 
         [Route("register-contact")]
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> AddContact([FromBody] ContactDto contact)
         {
             try
