@@ -1,0 +1,71 @@
+﻿<div class="modal-container">
+    @foreach (var member in Group)
+    {
+        <RadzenRow JustifyContent=JustifyContent.Start AlignItems=AlignItems.Center class="fiap-card">
+            <div class="fiap-card-header">
+                @if (!string.IsNullOrEmpty(member.ProfilePicture))
+                {
+                    <img src="@member.ProfilePicture" alt="@member.Name" />
+                }
+                else
+                {
+                    <RadzenIcon Icon="person" />
+                }
+            </div>
+
+            <div class="fiap-card-body">
+                <RadzenText Text="@member.Name" TextStyle="TextStyle.H5" />
+                <RadzenText Text="@member.Email" TextStyle="TextStyle.Body1" />
+
+                <RadzenRow JustifyContent="JustifyContent.Start" Gap="16">                    
+                    <RadzenLink Path="@member.LinkedinPath" Image="./images/LinkedIn_icon_circle.png" Target="_blank" />
+                </RadzenRow>
+            </div>
+        </RadzenRow>
+
+    }
+</div>
+
+@code {
+    private IEnumerable<Member> Group { get; set; } = new List<Member>
+    {
+        new Member
+        {
+            Name = "Lucas Lima",
+            Email = "lucaslearningsw@gmail.com",
+            LinkedinPath = "https://www.linkedin.com/in/lucas-alixandre-lima-5551331b4/",
+            ProfilePicture = "https://media.licdn.com/dms/image/C5603AQHjDo4GRiS51Q/profile-displayphoto-shrink_200_200/0/1628854592995?e=1721865600&v=beta&t=IB_8no2vuU5nTElxU0HZMWQcR0MzdDG4baeNvz-afO8"
+        },
+        new Member
+        {
+            Name = "Luiz Godoy",
+            Email = "garciadegodoy@msn.com",
+            LinkedinPath = "https://www.linkedin.com/in/garciadegodoy",
+            ProfilePicture = "https://media.licdn.com/dms/image/C4D03AQEJ8AQQGJxBNg/profile-displayphoto-shrink_200_200/0/1602064176890?e=2147483647&v=beta&t=tlFE4ogiIadn2-pQrUEDUqRAiHhBENHjFeaVoc69YcM"
+        },
+        new Member
+        {
+            Name = "Ricardo do Vale",
+            Email = "ricardovcza@gmail.com",
+            LinkedinPath = "https://www.linkedin.com/in/ricardo-cza/",
+            ProfilePicture = "https://media.licdn.com/dms/image/C4D03AQEXbSHRD1l_2g/profile-displayphoto-shrink_400_400/0/1658428861601?e=1720051200&v=beta&t=kEH5qpCdcB-Z6Iup3tjh7J9HzmvaW4aebjjR665FOQ0"
+        },
+        new Member
+        {
+            Name = "Tiago Evangelista",
+            Email = "tiagoefreires@gmail.com",
+            LinkedinPath = "https://www.linkedin.com/in/tiagoevangelista/",
+            ProfilePicture = "https://media.licdn.com/dms/image/D5603AQGJIp1BYCzRHw/profile-displayphoto-shrink_200_200/0/1676647482896?e=1721865600&v=beta&t=VbjXDdzIyHBixcCge3N9c7BTuYUnGqOjfXkc685GmfM"
+        },
+
+
+    };
+
+    class Member()
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string LinkedinPath { get; set; }
+        public string ProfilePicture { get; set; }
+    }
+}
