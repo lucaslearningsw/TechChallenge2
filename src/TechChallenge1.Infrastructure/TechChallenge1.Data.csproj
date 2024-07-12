@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TechChallenge1.Core\TechChallenge1.Core.csproj" />
-    <ProjectReference Include="..\TechChallenge1.Domain\TechChallenge1.Domain.csproj" />
+    <ProjectReference Include="..\..\src\TechChallenge1.Core\TechChallenge1.Core.csproj" />
+    <ProjectReference Include="..\..\src\TechChallenge1.Domain\TechChallenge1.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
