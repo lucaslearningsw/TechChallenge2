@@ -4,9 +4,7 @@ using System.Net.Http.Json;
 using System.Net;
 using FluentAssertions;
 using TechChallenge1.Core.DTO;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using FluentAssertions.Equivalency;
+
 
 namespace Api.IntegrationTests.Contacts;
 
@@ -151,9 +149,9 @@ public  class CreateContactTests(IntegrationTestWebAppFactory factory) : BaseInt
 
             HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/contact/register-contact", contact);
 
-            ContactDto contactId = await response.Content.ReadFromJsonAsync<ContactDto>();
+            ContactDto contactResult = await response.Content.ReadFromJsonAsync<ContactDto>();
 
-            return contactId;
+            return contactResult;
         }
     }
 
