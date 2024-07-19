@@ -24,19 +24,8 @@ public class StateRepository : Repository<State>, IStateRepository
     }
 
     public async Task<State> GetByDDD(int ddd)
-    
     {
 
-        try
-        {
-            return await DbSet.FirstOrDefaultAsync(s => s.DDD == ddd); ;
-
-        }
-        catch (Exception EX)
-        {
-
-            throw EX;
-        }
-        
+      return await DbSet.FirstOrDefaultAsync(s => s.DDD == ddd); ;
     }
 }

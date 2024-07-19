@@ -1,4 +1,5 @@
-﻿using TechChallenge1.Domain.Interfaces;
+﻿using TechChallenge1.Core.DomainExceptions;
+using TechChallenge1.Domain.Interfaces;
 using TechChallenge1.Domain.Models;
 
 namespace TechChallenge1.Domain.Services;
@@ -19,7 +20,13 @@ public class StateService : IStateService
 
     public async Task<State> GetByDDD(int ddd)
     {
-        return await _stateRepository.GetByDDD(ddd);
+        var result =  await _stateRepository.GetByDDD(ddd);
+
+        if (result is null) throw new DomainException("DDD não existe");
+        else
+        {
+            return result;
+        }
     }
 
     public async Task<State> GetById(Guid id)

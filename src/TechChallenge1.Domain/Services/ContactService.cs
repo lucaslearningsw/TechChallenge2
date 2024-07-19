@@ -1,11 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.AspNetCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using TechChallenge1.Core.DomainExceptions;
 using TechChallenge1.Core.DTO;
 using TechChallenge1.Domain.Interfaces;

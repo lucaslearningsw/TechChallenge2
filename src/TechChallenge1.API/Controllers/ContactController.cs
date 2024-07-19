@@ -66,7 +66,7 @@ namespace TechChallenge1.API.Controllers
 
 
         [Route("register-contact")]
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> AddContact([FromBody] ContactDto contact)
         {
             try

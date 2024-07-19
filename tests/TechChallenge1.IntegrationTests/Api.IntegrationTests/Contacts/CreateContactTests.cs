@@ -4,13 +4,16 @@ using System.Net.Http.Json;
 using System.Net;
 using FluentAssertions;
 using TechChallenge1.Core.DTO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using FluentAssertions.Equivalency;
 
 namespace Api.IntegrationTests.Contacts;
 
 public  class CreateContactTests(IntegrationTestWebAppFactory factory) : BaseIntegrationTests(factory)
 {
     [Fact]
-    public async Task Deve_RetornarNotFound_QuandoContatoNaoExiste()
+    public async Task Should_ReturnOK_WhenContactRegistered()
     {
         // Arrange
         // Act
@@ -21,12 +24,113 @@ public  class CreateContactTests(IntegrationTestWebAppFactory factory) : BaseInt
             Email = "lucas@test.com",
             
             State = new StateDto() {DDD = 98 , Id = Guid.NewGuid() ,Name = "test"},
-        };  
-        HttpResponseMessage response = await HttpClient.PutAsJsonAsync("api/contact/register-contact", contact);
+        };
+
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/contact/register-contact", contact);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-
-    
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+
+
+
+    [Fact]
+    public async Task Should_ReturnBadRequest_WhenEmailIsNotValid()
+    {
+        // Arrange
+        // Act
+        ContactDto contact = new ContactDto()
+        {
+            Id = Guid.NewGuid(),
+            Name = "Lucas",
+            Phone = "11991635199",
+            Email = "lucas@",
+
+            State = new StateDto() { DDD = 98, Id = Guid.NewGuid(), Name = "test" },
+        };
+
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/contact/register-contact", contact);
+        var returnValue = response.Content.ReadAsStringAsync().Result.ToString();
+
+        // Assert
+         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        returnValue.Contains("Informe um endereço de e-mail válido. Ex.: nome@dominio.com.br").Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task Should_ReturnBadRequest_WhenPHoneNumberIsInvalid()
+    {
+        // Arrange
+        // Act
+        ContactDto contact = new ContactDto()
+        {
+            Id = Guid.NewGuid(),
+            Name = "Lucas",
+            Phone = "1199163",
+            Email = "lucas@test.com",
+
+            State = new StateDto() { DDD = 98, Id = Guid.NewGuid(), Name = "test" },
+        };
+
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/contact/register-contact", contact);
+        var returnValue = response.Content.ReadAsStringAsync().Result.ToString();
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        returnValue.Contains("O telefone deve conter entre 10 e 11 digitos.").Should().BeTrue();
+    }
+
+
+    [Fact]
+    public async Task Should_ReturnBadRequest_WhenNameIsNotFilled()
+    {
+        // Arrange
+        // Act
+        ContactDto contact = new ContactDto()
+        {
+            Id = Guid.NewGuid(),
+            Name = "",
+            Phone = "11991635199",
+            Email = "lucas@test.com",
+
+            State = new StateDto() { DDD = 98, Id = Guid.NewGuid(), Name = "test" },
+        };
+
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/contact/register-contact", contact);
+        var returnValue = response.Content.ReadAsStringAsync().Result.ToString();
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        returnValue.Contains("Campo de preenchimento obrigatório.").Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task Should_ReturnBadRequest_WhenStateIdDoesNotExist()
+    {
+        // Arrange
+        // Act
+        ContactDto contact = new ContactDto()
+        {
+            Id = Guid.NewGuid(),
+            Name = "lucastest",
+            Phone = "11991635199",
+            Email = "lucas@test.com",
+
+            State = new StateDto() { DDD = 9899, Id = Guid.NewGuid(), Name = "test" },
+        };
+
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/contact/register-contact", contact);
+        var returnValue = response.Content.ReadAsStringAsync().Result.ToString();
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        returnValue.Contains("DDD não existe").Should().BeTrue();
+    }
+
+
+
 }

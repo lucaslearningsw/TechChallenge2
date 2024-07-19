@@ -46,7 +46,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
             	[Email] [varchar](100) NOT NULL,
             	[StateId] [uniqueidentifier] NOT NULL
                CONSTRAINT [PK_Contatos] PRIMARY KEY ([Id]),
-               CONSTRAINT [FK_Contatos_State_Id] FOREIGN KEY ([Id]) REFERENCES [State] ([Id]) ON DELETE CASCADE
+               CONSTRAINT [FK_Contatos_State_Id] FOREIGN KEY ([StateId]) REFERENCES [State] ([Id]) ON DELETE CASCADE
             );
             
             """;
