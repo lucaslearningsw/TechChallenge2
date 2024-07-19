@@ -95,7 +95,7 @@ namespace TechChallenge1.API.Controllers
 
             await _contactService.Delete(id);
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpPatch]

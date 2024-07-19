@@ -133,4 +133,29 @@ public  class CreateContactTests(IntegrationTestWebAppFactory factory) : BaseInt
 
 
 
+    public static class ContactFixture
+    {
+        public static async Task<ContactDto> RegisterContact(HttpClient HttpClient)
+        {
+            // Arrange
+            // Act
+            ContactDto contact = new ContactDto()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Lucas",
+                Phone = "11991635199",
+                Email = "lucas@test.com",
+
+                State = new StateDto() { DDD = 98, Id = Guid.NewGuid(), Name = "test" },
+            };
+
+            HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/contact/register-contact", contact);
+
+            ContactDto contactId = await response.Content.ReadFromJsonAsync<ContactDto>();
+
+            return contactId;
+        }
+    }
+
+
 }
