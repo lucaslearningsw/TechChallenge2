@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechChallenge1.API.AutoMapper;
 using TechChallenge1.API.Configurations;
+using TechChallenge1.API.Extensions;
 using TechChallenge1.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddControllers().AddFluentValidation(v =>
 {
@@ -46,6 +48,7 @@ app.UseCors(x => x
 
 app.UseHttpsRedirection();
 
+app.ApplyMigrations();
 app.UseAuthorization();
 
 app.MapControllers();

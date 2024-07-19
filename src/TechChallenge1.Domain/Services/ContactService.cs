@@ -26,7 +26,6 @@ namespace TechChallenge1.Domain.Services
 
         public async Task Create(Contact contact)
         {
-            contact.Phone = contact.Phone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
             var contactValidator = new ContactValidator();
             var result = contactValidator.Validate(contact);
 

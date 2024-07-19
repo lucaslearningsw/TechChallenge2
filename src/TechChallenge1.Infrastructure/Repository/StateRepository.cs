@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TechChallenge1.Data.Context;
 using TechChallenge1.Domain.Interfaces;
 using TechChallenge1.Domain.Models;
@@ -23,7 +24,19 @@ public class StateRepository : Repository<State>, IStateRepository
     }
 
     public async Task<State> GetByDDD(int ddd)
+    
     {
-        return await DbSet.FirstOrDefaultAsync(s => s.DDD == ddd); ;
+
+        try
+        {
+            return await DbSet.FirstOrDefaultAsync(s => s.DDD == ddd); ;
+
+        }
+        catch (Exception EX)
+        {
+
+            throw EX;
+        }
+        
     }
 }

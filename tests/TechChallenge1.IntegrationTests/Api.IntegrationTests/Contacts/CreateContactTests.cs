@@ -14,7 +14,14 @@ public  class CreateContactTests(IntegrationTestWebAppFactory factory) : BaseInt
     {
         // Arrange
         // Act
-        ContactDto contact = new ContactDto() {Id = Guid.NewGuid(), Email = "lucas@test.com", Name = "Lucas", Phone = "9999999999", StateId = Guid.NewGuid()};  
+        ContactDto contact = new ContactDto()
+        {   Id = Guid.NewGuid(),
+            Name = "Lucas",
+            Phone = "11991635199",
+            Email = "lucas@test.com",
+            
+            State = new StateDto() {DDD = 98 , Id = Guid.NewGuid() ,Name = "test"},
+        };  
         HttpResponseMessage response = await HttpClient.PutAsJsonAsync("api/contact/register-contact", contact);
 
         // Assert

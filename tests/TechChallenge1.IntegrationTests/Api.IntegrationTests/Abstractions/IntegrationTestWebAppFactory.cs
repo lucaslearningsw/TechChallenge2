@@ -22,7 +22,8 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                 options
                     .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
-            await _msSqlContainer.ExecScriptAsync(CreateTables());
+         await _msSqlContainer.ExecScriptAsync(CreateTables());
+         
         });
     }
 
@@ -31,7 +32,14 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         string sql =
             """
            
-            CREATE TABLE [TechChallenge1].[Contact](
+            CREATE TABLE [State] (
+            	[Id] [uniqueidentifier] NOT NULL,
+            	[DDD] [int] NOT NULL,
+            	[Name] [varchar](100) NOT NULL
+                CONSTRAINT [PK_State] PRIMARY KEY ([Id])
+            );
+
+            CREATE TABLE [Contact] (
             	[Id] [uniqueidentifier] NOT NULL,
             	[Name] [varchar](100) NOT NULL,
             	[Phone] [varchar](100) NOT NULL,
@@ -40,14 +48,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                CONSTRAINT [PK_Contatos] PRIMARY KEY ([Id]),
                CONSTRAINT [FK_Contatos_State_Id] FOREIGN KEY ([Id]) REFERENCES [State] ([Id]) ON DELETE CASCADE
             );
-           
-            CREATE TABLE [TechChallenge1].[State](
-            	[Id] [uniqueidentifier] NOT NULL,
-            	[DDD] [int] NOT NULL,
-            	[Name] [varchar](100) NOT NULL
-                CONSTRAINT [PK_State] PRIMARY KEY ([Id])
             
-            );
             """;
 
         return sql;

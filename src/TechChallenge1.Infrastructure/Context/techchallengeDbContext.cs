@@ -1,35 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection.Emit;
 using TechChallenge1.Domain.Models;
 
 
 namespace TechChallenge1.Data.Context
 {
-    public class techchallengeDbContext : DbContext
+    public sealed class techchallengeDbContext(DbContextOptions<techchallengeDbContext> options)
+    : DbContext(options)
     {
-        public techchallengeDbContext()
-        {
-            
-        }
-        public techchallengeDbContext(DbContextOptions options) : base(options)
-        {
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            ChangeTracker.AutoDetectChangesEnabled = false;
-        }
-
+       
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<State> States { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(techchallengeDbContext).Assembly);
 
-            modelBuilder.Entity<State>().HasData(StateList.List);
+           // modelBuilder.Entity<State>().HasData(StateList.List);
         }
 
     }

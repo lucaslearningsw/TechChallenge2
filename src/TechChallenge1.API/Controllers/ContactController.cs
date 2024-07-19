@@ -65,7 +65,6 @@ namespace TechChallenge1.API.Controllers
         }
 
 
-        [AllowAnonymous]
         [Route("register-contact")]
         [HttpPut]
         public async Task<IActionResult> AddContact([FromBody] ContactDto contact)
@@ -79,7 +78,7 @@ namespace TechChallenge1.API.Controllers
             }
             catch (DomainException e)
             {
-                return (BadRequest(new { Message = e.Message }));
+                return (BadRequest(new {e.Message}));
             }
         }
 
@@ -129,7 +128,7 @@ namespace TechChallenge1.API.Controllers
 
         private async Task<ContactDto> FillState(ContactDto contact)
         {
-            contact.State =  _mapper.Map<StateDto>(await _stateService.GetById(contact.StateId));
+            contact.State =  _mapper.Map<StateDto>(await _stateService.GetByDDD(contact.State.DDD));
 
             return contact;
         }
