@@ -102,7 +102,7 @@ namespace TechChallenge1.API.Controllers
         [Route("update-contact")]
         public async Task<IActionResult> UpdateUser([FromBody] ContactDto dto)
         {
-            //TODO: fluent validion
+            //T
             var contact = await _contactService.GetById(dto.Id);
             
 

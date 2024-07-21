@@ -52,7 +52,15 @@ namespace TechChallenge1.Domain.Services
 
         public async Task Update(Contact contact)
         {
-            contact.Phone = contact.Phone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
+            var contactValidator = new ContactValidator();
+            var result = contactValidator.Validate(contact);
+
+            if (!result.IsValid)
+            {
+                throw new DomainException(result.Errors.FirstOrDefault().ErrorMessage);
+            }
+
+            contact.State = null;
             await _contactRepository.Update(contact);
         }
     }

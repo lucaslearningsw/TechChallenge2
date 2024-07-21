@@ -47,6 +47,21 @@ namespace Api.IntegrationTests.Contacts
 
             returnValue.Contains("Informe um endereço de e-mail válido. Ex.: nome@dominio.com.br").Should().BeTrue();
 
+        }
+
+        [Fact]
+        public async Task Should_ReturnOk_WhenUpdateContactIsValid()
+        {
+            // Arrange
+            ContactDto contactRegister = await ContactFixture.RegisterContact(HttpClient);
+            // Act
+
+            contactRegister.Email = "lucas@gmail.com";
+            contactRegister.Phone = "11991999999";
+
+            HttpResponseMessage response = await HttpClient.PutAsJsonAsync("api/contact/update-contact", contactRegister);
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         }
     }
