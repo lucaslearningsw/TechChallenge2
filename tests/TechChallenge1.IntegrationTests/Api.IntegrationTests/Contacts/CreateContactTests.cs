@@ -53,7 +53,7 @@ public  class CreateContactTests(IntegrationTestWebAppFactory factory) : BaseInt
         // Assert
          response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        returnValue.Contains("Informe um endereço de e-mail válido. Ex.: nome@dominio.com.br").Should().BeTrue();
+        returnValue.Contains("Informe um endereco de e-mail valido. Ex.: nome@dominio.com.br").Should().BeTrue();
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public  class CreateContactTests(IntegrationTestWebAppFactory factory) : BaseInt
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        returnValue.Contains("Campo de preenchimento obrigatório.").Should().BeTrue();
+        returnValue.Contains("Campo de preenchimento obrigatorio.").Should().BeTrue();
     }
 
     [Fact]

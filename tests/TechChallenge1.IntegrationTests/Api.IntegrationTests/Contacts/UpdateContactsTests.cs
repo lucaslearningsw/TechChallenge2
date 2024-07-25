@@ -45,7 +45,7 @@ namespace Api.IntegrationTests.Contacts
 
             var returnValue = response.Content.ReadAsStringAsync().Result.ToString();
 
-            returnValue.Contains("Informe um endereço de e-mail válido. Ex.: nome@dominio.com.br").Should().BeTrue();
+            returnValue.Contains("Informe um endereco de e-mail valido. Ex.: nome@dominio.com.br").Should().BeTrue();
 
         }
 

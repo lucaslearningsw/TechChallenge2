@@ -24,7 +24,7 @@ namespace TechChallenge.Domain.UnitTest
             var result = contactService.Create(contactWithEmptyFields);
 
             // Assert
-            Assert.Equal("Campo de preenchimento obrigatório.", result.Exception.InnerException.Message.ToString());
+            Assert.Equal("Campo de preenchimento obrigatorio.", result.Exception.InnerException.Message.ToString());
         }
 
 
@@ -43,7 +43,7 @@ namespace TechChallenge.Domain.UnitTest
             var result = contactService.Create(contactWithNotValidEmail);
 
             // Assert
-            Assert.Equal("Informe um endereço de e-mail válido. Ex.: nome@dominio.com.br", result.Exception.InnerException.Message.ToString());
+            Assert.Equal("Informe um endereco de e-mail valido. Ex.: nome@dominio.com.br", result.Exception.InnerException.Message.ToString());
         }
 
         [Theory]
@@ -61,7 +61,7 @@ namespace TechChallenge.Domain.UnitTest
             var result = contactService.Create(contactWithNotValidPhone);
 
             // Assert
-            Assert.Equal("O telefone deve conter apenas números.", result.Exception.InnerException.Message.ToString());
+            Assert.Equal("O telefone deve conter apenas numeros.", result.Exception.InnerException.Message.ToString());
         }
 
         [Theory]
