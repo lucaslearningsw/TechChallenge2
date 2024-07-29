@@ -12,14 +12,16 @@ namespace TechChallenge1.API.Extensions
             using techchallengeDbContext context =
                 scope.ServiceProvider.GetRequiredService<techchallengeDbContext>();
 
-            if (context.States.Any())
-            {
-                return;
-            }
+            context.Database.Migrate();
 
-            context.States.AddRange(StateList.List);
+            //if (context.States.Any())
+            //{
+            //    return;
+            //}
 
-            context.SaveChanges();
+            //context.States.AddRange(StateList.List);
+
+            //context.SaveChanges();
         }
     }
 }
