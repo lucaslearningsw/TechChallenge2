@@ -14,14 +14,14 @@ namespace TechChallenge1.API.Extensions
 
             context.Database.Migrate();
 
-            //if (context.States.Any())
-            //{
-            //    return;
-            //}
+            if (context.States.Any())
+            {
+                return;
+            }
 
-            //context.States.AddRange(StateList.List);
+            context.States.AddRange(StateList.List);
 
-            //context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }
