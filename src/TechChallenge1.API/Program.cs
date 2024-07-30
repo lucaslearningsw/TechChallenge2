@@ -1,3 +1,4 @@
+using Prometheus;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -33,6 +34,8 @@ builder.Services.AddControllers().AddFluentValidation(v =>
 var urls = builder.Configuration.GetSection("AllowOrigins").Get<string[]>();
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -48,10 +51,13 @@ app.UseCors(x => x
 
 app.UseHttpsRedirection();
 
+app.UseHttpMetrics();
+
 app.ApplyMigrations();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapMetrics();
 
 app.Run();
 

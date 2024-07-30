@@ -28,3 +28,31 @@ services:
     environment:
       SA_PASSWORD: "1q2w3e4r@#$"
       ACCEPT_EULA: "Y"
+
+  prometheus:
+    image: prometheus:latest
+    build:
+      context: .
+      dockerfile: src/TechChallenge1.API/Prometheus/Dockerfile
+    ports:
+      - "9090:9090"
+
+  # prometheus:
+  #   image: prom/prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  #   command:
+  #     - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
