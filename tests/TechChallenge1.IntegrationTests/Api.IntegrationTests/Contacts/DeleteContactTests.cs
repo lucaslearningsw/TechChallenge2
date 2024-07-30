@@ -30,6 +30,8 @@ namespace Api.IntegrationTests.Contacts
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+            //
+
         }
     }
 }
